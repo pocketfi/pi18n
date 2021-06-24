@@ -1,17 +1,21 @@
 {
-  "name": "pi18n",
+  "name": "@pocketfi/pi18n",
   "version": "0.0.2",
   "author": "pocketfi",
   "repository": "https://github.com/pocketfi/pi18n",
   "description": "Single-pipe internationalization for Angular",
   "readme": "README.md",
-  "keywords": ["Angular", "i18n"],
+  "keywords": [
+    "Angular",
+    "i18n"
+  ],
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
+    "test:ci": "ng test --browsers=ChromeHeadless --watch=false",
     "pack": "npm run build && cd dist/pi18n && npm pack"
   },
   "private": false,

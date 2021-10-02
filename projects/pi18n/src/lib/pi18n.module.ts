@@ -9,7 +9,9 @@ import {Pi18nService} from './pi18n.service'
   ],
   imports: [],
   exports: [],
-  providers: [Pi18nService]
+  providers: [
+    Pi18nService
+  ]
 })
 export class Pi18nModule {
 }

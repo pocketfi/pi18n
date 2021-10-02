@@ -14,10 +14,4 @@ describe('IPipe', () => {
     const pipe = new Pi18nPipe(service)
     expect(pipe).toBeTruthy()
   })
-
-  it('translate', () => {
-    const pipe = new Pi18nPipe(service)
-    let result = pipe.transform('')
-    expect(result).toBe('banana')
-  })
 })

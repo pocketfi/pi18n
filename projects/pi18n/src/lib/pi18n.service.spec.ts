@@ -19,8 +19,26 @@ describe('Pi18nService', () => {
     expect(service).toBeTruthy()
   })
 
-  it('config not set', () => {
+  it('config not set translate', () => {
     expect(() => service.translate('greet')).toThrowMatching(e => e instanceof Error)
+  })
+
+  it('config not set set language', () => {
+    expect(() => service.setLanguage('en')).toThrowMatching(e => e instanceof Error)
+  })
+
+  it('config set empty', () => {
+    service.configure({})
+    expect(() => service.setLanguage('en')).toThrowMatching(e => e instanceof Error)
+  })
+
+  it('set lang in config missing', () => {
+    expect(() => service.configure(testConfig, 'ru')).toThrowMatching(e => e instanceof Error)
+  })
+
+  it('set lang in config', () => {
+    service.configure(testConfig, 'en')
+    expect(service.translate('greet')).toEqual('Hello!')
   })
 
   it('lang not set', () => {
@@ -28,7 +46,7 @@ describe('Pi18nService', () => {
     expect(() => service.translate('greet')).toThrowMatching(e => e instanceof Error)
   })
 
-  it('lang set invalid', () => {
+  it('lang set missing', () => {
     service.configure(testConfig)
     expect(() => service.setLanguage('ru')).toThrowMatching(e => e instanceof Error)
   })
@@ -38,9 +56,15 @@ describe('Pi18nService', () => {
     expect(service.getLanguages()).toEqual(['en'])
   })
 
-  it('translate', () => {
+  it('translate existing', () => {
     service.configure(testConfig)
     service.setLanguage('en')
     expect(service.translate('greet')).toEqual('Hello!')
+  })
+
+  it('translate non-existing return key', () => {
+    service.configure(testConfig)
+    service.setLanguage('en')
+    expect(service.translate('missed')).toEqual('missed')
   })
 })

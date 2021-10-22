@@ -11,17 +11,17 @@ export class Pi18nService {
   constructor() {
   }
 
-  configure(config: { [lang: string]: { [key: string]: string } }): void {
+  configure(config: { [lang: string]: { [key: string]: string } }, language?: string): void {
     this.config = config
+    if (language) {
+      this.setLanguage(language)
+    }
   }
 
-  setLanguage(lang: string): void {
-    if (Object.keys(this.config).length === 0) {
-      throw Error('Pi18n is not configured')
-    }
-    this.language = this.config[lang]
+  setLanguage(language: string): void {
+    this.language = this.config[language]
     if (!this.language) {
-      throw Error(`Language ${lang} is not present in config`)
+      throw Error(`Language ${language} is not present in config`)
     }
   }
 
@@ -33,7 +33,12 @@ export class Pi18nService {
     if (Object.keys(this.language).length === 0) {
       throw Error('Language is not configured')
     }
-    return this.language[key]
+    let translated = this.language[key];
+    if (translated == undefined) {
+      console.warn(`Translation for key ${key} is not found for language ${this.language}`)
+      return key
+    }
+    return translated
   }
 
 }
